@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime Topia</title>
+    <link rel="stylesheet" href="animetopia.css">
+    <link rel="icon" type="image/jpg" href="onizukacolored-modified.png" class="faviconn">
+    <script src="animetopia.js"></script>
+
+    <style>
+        body{
+            background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: auto;
+            height:100vh;
+        }
+     h1{
+        color: rgb(183, 218, 228);
+     }
+        .box{
+            background-image: url("anime-night-sky-illustration.jpg");
+            /* background-color: rgba(187, 176, 176, 0.829); */
+            background-size:cover;
+
+            width:600px;
+            height:225px;
+            border-radius:5px;
+            padding: 20px;
+        }
+        .Timers{
+           padding:20px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            font-weight: 600;
+            font-size: larger;
+        }
+        .Timers div{
+            background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
+            padding: 10px;
+            border-radius: 5%;
+            margin-top: 20px;
+
+        }
+        #progress{
+            font-size: x-large;
+            font-weight: 600;
+            margin-top: 10px;
+            color: rgb(253, 253, 253);
+
+        }
+     
+        .progresscontainer{
+            background-color: white;
+            height: 10px;
+            width: 100%;
+           margin-top: 30px;
+           border-radius: 30px;
+        }
+        #progressbar{
+            background-color: rgb(43, 213, 91);
+            height: 100%;
+            width:0%;
+            border-radius: 30px;
+        }
+
+    </style>
+
+    <script src="pricing.js"></script>
+
+</head>
+<body>
+   
+    <div class="header">
+
+        <header class="headercontent">
+            <a class="imgpluslogo">
+                <img src="onizukacolored-modified.png" class="imglogo"/>
+                <span class="logo">Anime Topia</span>
+            </a>
+            <nav class="nav">
+                <div onclick="home()"id="navlink">Home</div>
+                <div onclick="donate()" id="features">Donate</div>
+                <div onclick="pricing()" id="pricing">Pricing</div>
+                <div onclick="blog()" id="blog">Blogroll</div>
+                <div onclick="about()" id="about">About</div>
+            </nav>
+
+        <button onclick="contact()" id="contactbutton">Contact us</button> 
+             
+        
+        </header>
+
+    </div>
+
+
+
+
+    <div class="box">
+
+        <h1>Time Remaining</h1>
+
+        <div class="Timers">
+
+        <div>
+            
+        <span id="days">00</span>  Days
+          
+        </div> 
+        <div>
+            <span id="hours">00</span>Hours
+        </div>
+        <div>
+            <span id="mins">00</span> Mins
+        </div>
+        <div>
+            <span id="secs">00</span>Secs
+        </div>
+
+        </div>
+
+        <div id="progress">Limited Offer: $999</div>
+
+        <div class="progresscontainer">
+        <div id="progressbar"></div>
+        </div>
+
+
+    </div>
+    
+</body>
+</html>
