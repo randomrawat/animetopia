@@ -10,51 +10,133 @@
     <style>
         body{
             background-image: linear-gradient(135deg, #fbfbfc 0%,#fafdff 100%);
-
+        }
+        #googleLogin{
+            background-color: rgb(246, 246, 250); ;
+    border:1 solid rgb(98, 83, 215);
+    font-size: 1.1rem ;
+    border-radius: .3rem;
+    color: rgb(15, 15, 15);
+    transform: all 0.1s;
+    font-weight: 600;
+    padding: .55rem;
+    margin-right: 20px;
+    margin-top: 1.5rem;
         }
     </style>
-   
 </head>
+
+<script type="module">
+    // Import Firebase SDK
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+    import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
+
+    // Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyAV2V_5zYWJaEvqQMvhowIO70O5GOMyzBI",
+        authDomain: "fir-1-72fde.firebaseapp.com",
+        projectId: "fir-1-72fde",
+        storageBucket: "fir-1-72fde.appspot.com",
+        messagingSenderId: "611445404669",
+        appId: "1:611445404669:web:77401c0098659bca599f94",
+        measurementId: "G-FEPQ4JM1WY"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    
+    const provider = new GoogleAuthProvider();
+
+    // Google Sign-In
+    document.getElementById("googleLogin").addEventListener("click", () => {
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                alert("Google Login Successful: " + result.user.displayName);
+            })
+            .catch((error) => {
+                console.error("Error:", error.message);
+                alert("Google Login Failed: " + error.message);
+            });
+    });
+
+    // Handle Form Submission
+    document.querySelector(".sendbutton").addEventListener("click", async (e) => {
+        e.preventDefault(); // Prevent form refresh
+
+        // Check if user is logged in
+        const user = auth.currentUser;
+        if (!user) {
+            alert("Please log in before submitting.");
+            return;
+        }
+
+        // Get form values
+        const email = document.querySelector(".contactussection:nth-child(1)").value;
+        const subject = document.querySelector(".contactussection:nth-child(3)").value;
+        const message = document.querySelector(".contactussection2").value;
+
+        // Validate input
+        if (!email || !subject || !message) {
+            alert("All fields are required!");
+            return;
+        }
+
+        try {
+            // Save to Firestore (Auto-Generated ID)
+            await addDoc(collection(db, "messages"), {
+                email,
+                subject,
+                message,
+                userId: user.uid, // Store user ID
+                timestamp: new Date()
+            });
+
+            alert("Message sent successfully!");
+
+            // Clear form fields
+            document.querySelector(".contactussection:nth-child(1)").value = "";
+            document.querySelector(".contactussection:nth-child(3)").value = "";
+            document.querySelector(".contactussection2").value = "";
+
+        } catch (error) {
+            console.error("Error saving message:", error);
+            alert("Failed to send message.");
+        }
+    });
+</script>
+
+
 <body>
     <div class="header">
-
         <header class="headercontent">
             <a class="imgpluslogo">
                 <img src="onizukacolored-modified.png" class="imglogo"/>
                 <span class="logo">Anime Topia</span>
             </a>
             <nav class="nav">
-                <div onclick='home()'id="navlink">Home</div>
+                <div onclick='home()' id="navlink">Home</div>
                 <div onclick="donate()" id="features">Donate</div>
                 <div onclick="pricing()" id="pricing">Pricing</div>
                 <div onclick="blog()" id="blog">Blogroll</div>
                 <div onclick="about()" id="about">About</div>
             </nav>
-
-        <button onclick="scrollTopp()" id="contactbutton">Contact us</button> 
-             
-        
+            <button onclick="scrollTopp()" id="contactbutton">Contact us</button> 
         </header>
-
     </div>
 
     <div class="gif">
-
         <h1 class="contactusss">Contact Us</h1>
 
-        <form>
-            <input class="contactussection" placeholder="Email"/>  </br>
-            <input class="contactussection" placeholder="Subject"/></br>
-            <input class="contactussection2" placeholder="Leave us a message"/></br>
-
-            <button class="sendbutton">
-                Send
-            </button>
-
+        <form id="contactForm">
+            <input id="email" class="contactussection" placeholder="Email" required/> </br>
+            <input id="subject" class="contactussection" placeholder="Subject" required/></br>
+            <textarea id="message" class="contactussection2" placeholder="Leave us a message" required></textarea></br>
+            <button id="googleLogin">Login with Google</button>
+            <button type="submit" class="sendbutton">Send</button>
         </form>
-
-</div>
-
-
+    </div>
 </body>
 </html>
