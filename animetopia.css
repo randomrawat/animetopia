@@ -480,7 +480,7 @@ input::placeholder{
     background-color: white;
     margin-top: 1.5rem;
     height:50px;
-    width:500px;
+    width:400px;
     border:1 solid rgb(249, 248, 251);
     border-radius: 4px;
     margin-left: 4px;
@@ -489,8 +489,8 @@ input::placeholder{
 .contactussection2{
     background-color: white;
 
-    height:150px;
-    width:500px;
+    height:60px;
+    width:400px;
     border:1 solid rgb(248, 248, 252);
     border-radius: 4px;
     margin-left: 4px;
