@@ -515,7 +515,7 @@ input::placeholder{
 
 .gif{
     height:100%;
-    width:40%;
+    width:100%;
     background-image: url(8ReL8eL.gif);
     background-size: 100% 100vh;
     margin:0 auto;
